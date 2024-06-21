@@ -7,6 +7,7 @@ import StudentGradeBook from '../components/Grades/StudentGradeBook';
 import TeacherAnnualAverageGrade from '../components/Grades/TeacherAnnualAverageGrade';
 import AddStudentForm from '../components/Students/AddStudentForm';
 import HolidaySchedule from '../components/Holidays/HolidaySchedule';
+import StudentList from '../components/Students/StudentList';
 import StudentAttendanceTeacher from '../components/Attendances/StudentAttendanceTeacher';
 import UpdateStudentForm from '../components/Students/UpdateStudentForm';
 import authService from '../services/authService';
@@ -21,6 +22,7 @@ const TeacherPage = () => {
   const [viewingGradeBook, setViewingGradeBook] = useState(false);
   const [addingStudent, setAddingStudent] = useState(false);
   const [viewingHolidaySchedule, setViewingHolidaySchedule] = useState(false);
+  const [viewingStudentList, setViewingStudentList] = useState(false);
   const [viewingAttendance, setViewingAttendance] = useState(false);
   const [updatingStudent, setUpdatingStudent] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -53,6 +55,7 @@ const TeacherPage = () => {
     setViewingGradeBook(false);
     setAddingStudent(false);
     setViewingHolidaySchedule(false);
+    setViewingStudentList(false);
     setViewingAttendance(false);
     setUpdatingStudent(false);
   };
@@ -64,6 +67,7 @@ const TeacherPage = () => {
     setViewingGradeBook(false);
     setAddingStudent(false);
     setViewingHolidaySchedule(false);
+    setViewingStudentList(false);
     setViewingAttendance(false);
     setUpdatingStudent(false);
   };
@@ -75,6 +79,7 @@ const TeacherPage = () => {
     setViewingGradeBook(false);
     setAddingStudent(false);
     setViewingHolidaySchedule(false);
+    setViewingStudentList(false);
     setViewingAttendance(false);
     setUpdatingStudent(false);
   };
@@ -86,6 +91,7 @@ const TeacherPage = () => {
     setViewingAnnualGrade(false);
     setAddingStudent(false);
     setViewingHolidaySchedule(false);
+    setViewingStudentList(false);
     setViewingAttendance(false);
     setUpdatingStudent(false);
   };
@@ -97,12 +103,26 @@ const TeacherPage = () => {
     setViewingAnnualGrade(false);
     setViewingGradeBook(false);
     setViewingHolidaySchedule(false);
+    setViewingStudentList(false);
     setViewingAttendance(false);
     setUpdatingStudent(false);
   };
 
   const handleViewHolidaySchedule = () => {
     setViewingHolidaySchedule(true);
+    setAddingStudent(false);
+    setViewingGrades(false);
+    setUpdatingGrades(false);
+    setViewingAnnualGrade(false);
+    setViewingGradeBook(false);
+    setViewingStudentList(false);
+    setViewingAttendance(false);
+    setUpdatingStudent(false);
+  };
+
+  const handleViewStudentList = () => {
+    setViewingStudentList(true);
+    setViewingHolidaySchedule(false);
     setAddingStudent(false);
     setViewingGrades(false);
     setUpdatingGrades(false);
@@ -119,6 +139,7 @@ const TeacherPage = () => {
     setViewingGrades(false);
     setUpdatingGrades(false);
     setViewingAnnualGrade(false);
+    setViewingStudentList(false);
     setViewingGradeBook(false);
     setUpdatingStudent(false);
   };
@@ -131,6 +152,7 @@ const TeacherPage = () => {
     setViewingGrades(false);
     setUpdatingGrades(false);
     setViewingAnnualGrade(false);
+    setViewingStudentList(false);
     setViewingGradeBook(false);
   };
 
@@ -141,6 +163,7 @@ const TeacherPage = () => {
     setViewingGradeBook(false);
     setAddingStudent(false);
     setViewingHolidaySchedule(false);
+    setViewingStudentList(false);
     setViewingAttendance(false);
     setUpdatingStudent(false);
   };
@@ -163,13 +186,13 @@ const TeacherPage = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Box sx={{ mt: 3, display: 'flex', gap: 2, mb: 3 }}>
+      <Box sx={{ mt: 3, display: 'flex', gap: 1, mb: 3 }}>
         <Button
           variant={viewingGrades ? "contained" : "outlined"}
           color="primary"
           onClick={handleViewGrades}
         >
-          Проставити оцінки
+          Проставити оцінку
         </Button>
         <Button
           variant={updatingGrades ? "contained" : "outlined"}
@@ -205,6 +228,13 @@ const TeacherPage = () => {
           onClick={handleViewAttendance}
         >
           Відвідуваність учня
+        </Button>
+        <Button
+            variant={viewingStudentList ? "contained" : "outlined"}
+            color="primary"
+            onClick={handleViewStudentList}
+        >
+          Переглянути список учнів
         </Button>
         <Button
           variant={addingStudent ? "contained" : "outlined"}
@@ -282,6 +312,14 @@ const TeacherPage = () => {
                 <StudentAttendanceTeacher />
                 <Button variant="contained" onClick={handleHideForms} sx={{ mt: 2 }}>
                   Приховати форму відвідуваності
+                </Button>
+              </>
+            )}
+            {viewingStudentList &&(
+                <>
+                <StudentList />
+                <Button variant="contained" onClick={handleHideForms} sx={{ mt: 2 }}>
+                  Приховати форму списку учнів
                 </Button>
               </>
             )}
